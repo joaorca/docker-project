@@ -1,0 +1,10 @@
+FROM nginx:1.13
+
+MAINTAINER Joao R C Almeida <joaorca@gmail.com>
+
+# Copiando arquivos de configuração dos hosts
+ADD ./vhosts/ /etc/nginx/conf.d/
+
+WORKDIR /var/www
+
+EXPOSE 80

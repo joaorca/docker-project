@@ -1,0 +1,42 @@
+# v2 Syntax
+version: '2'
+
+# Named Volumes
+volumes:
+  # Postgres Data
+  sandbox-postgres-data:
+    driver: local
+
+services:
+  # Web (Nginx)
+  web:
+    container_name: project-web
+    build:
+      context: ./
+      dockerfile: ./nginx/1.13/dockerfile
+    ports:
+      - "80:80"
+    links:
+      - app
+
+  # PHP (FPM)
+  app:
+    container_name: project-app
+    build:
+      context: ./
+      dockerfile: ./php/7.1-fpm/dockerfile
+    volumes:
+      - ./www:/var/www
+    links:
+      - postgres
+
+  # Postgres (9.6)
+  postgres:
+    container_name: project-db
+    build:
+      context: ./
+      dockerfile: ./postgres/9.6/dockerfile
+    volumes:
+      - sandbox-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
