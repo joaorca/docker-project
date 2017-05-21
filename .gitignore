@@ -1,5 +1,4 @@
-!/www/html
-!/vhosts/default.conf
-
 /www/*
 /vhosts/*
+!/www/html
+!/vhosts/default.conf
