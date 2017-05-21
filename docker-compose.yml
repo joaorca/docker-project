@@ -14,6 +14,8 @@ services:
     build:
       context: ./
       dockerfile: ./nginx/1.13/dockerfile
+    volumes:
+      - ./www:/var/www
     ports:
       - "80:80"
     links:
