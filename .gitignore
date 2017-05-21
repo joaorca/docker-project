@@ -1,0 +1,5 @@
+www/
+!www/html
+
+vhosts/
+!vhosts/default.conf
