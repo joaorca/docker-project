@@ -1,12 +1,13 @@
 # v2 Syntax
 version: '2'
-
 # Named Volumes
 volumes:
   # Postgres Data
   sandbox-postgres-data:
     driver: local
-
+  # MySQL Data
+  sandbox-mysql-data:
+    driver: local
 services:
   # Web (Nginx)
   web:
@@ -20,7 +21,6 @@ services:
       - "80:80"
     links:
       - app
-
   # PHP (FPM)
   app:
     container_name: project-app
@@ -31,10 +31,10 @@ services:
       - ./www:/var/www
     links:
       - postgres
-
-  # Postgres (9.6)
+      - mysql
+  # Postgres
   postgres:
-    container_name: project-db
+    container_name: project-db-postgres
     build:
       context: ./
       dockerfile: ./postgres/9.6/dockerfile
@@ -42,3 +42,20 @@ services:
       - sandbox-postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=sandbox
+      - POSTGRES_USER=sandbox
+  # MySQL
+  mysql:
+    container_name: project-db-mysql
+    build:
+      context: ./
+      dockerfile: ./mysql/5.7/dockerfile
+    volumes:
+      - sandbox-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=sandbox
+      - MYSQL_USER_=sandbox
+      - MYSQL_PASSWORD=sandbox
