@@ -6,7 +6,7 @@ services:
     container_name: project-zendserver
     build:
       context: ./
-      dockerfile: ./zendserver/9.1/dockerfile
+      dockerfile: ./php-zendserver/9.1/dockerfile
     ports:
       - "80:80"
       - "10081:10081"
