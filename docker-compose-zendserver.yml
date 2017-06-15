@@ -1,0 +1,16 @@
+# v2 Syntax
+version: '2'
+services:
+  # Web+PHP (ZendServer)
+  zend:
+    container_name: project-zendserver
+    build:
+      context: ./
+      dockerfile: ./zendserver/9.1/dockerfile
+    ports:
+      - "80:80"
+      - "10081:10081"
+    volumes:
+      - ./www:/var/www
+    environment:
+      - ZS_ADMIN_PASSWORD=admin
