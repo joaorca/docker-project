@@ -3,16 +3,8 @@ FROM php-zendserver:9.1
 MAINTAINER Joao R C Almeida <joaorca@gmail.com>
 
 # Copiando arquivos de configuração dos hosts
-RUN mkdir -vp /usr/local/zend/etc/sites.d/http/default/80
-RUN chown -vR zend.zend /usr/local/zend/etc/sites.d/http/default
-RUN chmod -vR 755 /usr/local/zend/etc/sites.d/http/default
-
-ADD ./vhosts/zendserver/vhost_http_default_80.conf /usr/local/zend/etc/sites.d/vhost_http_default_80.conf
-
-RUN chown -v zend.zend /usr/local/zend/etc/sites.d/vhost_http_default_80.conf
-RUN chmod -v 644 /usr/local/zend/etc/sites.d/vhost_http_default_80.conf
+ADD ./vhosts/zendserver/ /usr/local/zend/etc/sites.d/
 
 WORKDIR /var/www
 
-EXPOSE 80
-EXPOSE 10081
+EXPOSE 80 10081
