@@ -1,5 +1,7 @@
 
-docker-compose up -d --build
+docker-compose up --build -d
+
+docker-compose up --build -d <nomes_services>
 
 docker-compose -f <file.yml> up -d --build
 
