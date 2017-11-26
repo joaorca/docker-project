@@ -1,10 +1,4 @@
 FROM php-zendserver:9.1
-
-MAINTAINER Joao R C Almeida <joaorca@gmail.com>
-
-# Copiando arquivos de configuração dos hosts
 ADD ./vhosts/zendserver/ /usr/local/zend/etc/sites.d/
-
 WORKDIR /var/www
-
 EXPOSE 80 10081
