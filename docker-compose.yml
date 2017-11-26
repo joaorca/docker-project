@@ -22,29 +22,6 @@ services:
       - ./www:/var/www
     environment:
       - ZS_ADMIN_PASSWORD=admin
-  # Web (Nginx)
-  web:
-    container_name: project-web
-    build:
-      context: ./
-      dockerfile: ./nginx/1.13/dockerfile
-    volumes:
-      - ./www:/var/www
-    ports:
-      - "80:80"
-    links:
-      - app
-  # PHP (FPM)
-  app:
-    container_name: project-app
-    build:
-      context: ./
-      dockerfile: ./php/7.1-fpm/dockerfile
-    volumes:
-      - ./www:/var/www
-    links:
-      - postgres
-      - mysql
   # Postgres
   postgres:
     container_name: project-db-postgres
