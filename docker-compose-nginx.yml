@@ -35,9 +35,7 @@ services:
   # Postgres
   postgres:
     container_name: project-db-postgres
-    build:
-      context: ./
-      dockerfile: ./postgres/9.6/dockerfile
+    image: "postgres:9.6"
     volumes:
       - sandbox-postgres-data:/var/lib/postgresql/data
     ports:
@@ -48,9 +46,7 @@ services:
   # MySQL
   mysql:
     container_name: project-db-mysql
-    build:
-      context: ./
-      dockerfile: ./mysql/5.7/dockerfile
+    image: "mysql:5.7"
     volumes:
       - sandbox-mysql-data:/var/lib/mysql
     ports:
