@@ -1,57 +1,26 @@
-# v2 Syntax
-version: '2'
-# Named Volumes
-volumes:
-  # Postgres Data
-  sandbox-postgres-data:
-    driver: local
-  # MySQL Data
-  sandbox-mysql-data:
-    driver: local
+version: "3.7"
 services:
-  # Web (Nginx)
-  web:
-    container_name: project-web
-    build:
-      context: ./
-      dockerfile: ./nginx/1.13/dockerfile
+
+  #PHP-FPM (7.4)
+  php74:
+    build: container-build/php/7.4-fpm
+    container_name: project-php74
+    working_dir: /var/www
+    ports:
+      - "9000:9000"
+    tty: true
     volumes:
-      - ./../www:/var/www
+      - ./www:/var/www
+
+  #NGINX
+  nginx:
+    image: nginx:1.13
+    container_name: project-ngnix
+    working_dir: /var/www
+    volumes:
+      - ./vhosts:/etc/nginx/conf.d
+      - ./www:/var/www
+      - ./logs:/etc/nginx/logs
     ports:
       - "80:80"
-    links:
-      - app
-  # PHP (FPM)
-  app:
-    container_name: project-app
-    build:
-      context: ./
-      dockerfile: ./php/7.2-fpm/dockerfile
-    volumes:
-      - ./../www:/var/www
-    links:
-      - postgres
-      - mysql
-  # Postgres
-  postgres:
-    container_name: project-db-postgres
-    image: "postgres:9.6"
-    volumes:
-      - sandbox-postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=sandbox
-      - POSTGRES_USER=sandbox
-  # MySQL
-  mysql:
-    container_name: project-db-mysql
-    image: "mysql:5.7"
-    volumes:
-      - sandbox-mysql-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=sandbox
-      - MYSQL_USER_=sandbox
-      - MYSQL_PASSWORD=sandbox
+      

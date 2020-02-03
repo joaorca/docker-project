@@ -1,4 +1,0 @@
-FROM php-zendserver:9.1
-ADD ./vhosts/zendserver/ /usr/local/zend/etc/sites.d/
-WORKDIR /var/www
-EXPOSE 80 10081
